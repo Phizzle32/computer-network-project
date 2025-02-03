@@ -1,0 +1,65 @@
+body {
+    background-color: rgb(47, 154, 226);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    height: 130px;
+    width: 35%;
+    padding: 10px 20px;
+    margin: auto;
+    margin-top: 200px;
+    overflow: hidden;
+}
+
+.container * {
+    margin: 5px;
+}
+
+#timer {
+    font-size: 35px;
+    font-family: "Roboto Mono", monospace;
+}
+
+#start {
+    border-radius: 5px;
+    background-color: rgb(123, 220, 227);
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    width: 70%;
+    ;
+
+    &:hover {
+        background-color: rgb(152, 231, 237);
+    }
+}
+
+#addTime {
+    border-radius: 5px;
+    background-color: rgb(123, 220, 227);
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    width: 100px;
+    ;
+    position: absolute;
+    display: none;
+
+    &:hover {
+        background-color: rgb(152, 231, 237);
+    }
+}
+
+#info {
+    position: relative;
+    color: #4CAF50;
+    font-size: large;
+    font-weight: bold;
+    opacity: 1;
+    transition: opacity 2s ease-out;
+}
