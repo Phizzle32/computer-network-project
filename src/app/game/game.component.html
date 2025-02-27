@@ -1,0 +1,14 @@
+<div class="game-info">
+    <h2 class="title">Computer Networks</h2>
+    <p class="timer">{{ getFormattedTime() }}</p>
+    <div class="game-control">
+        <button class="start" *ngIf="!gameOver && !hasStarted" (click)="start()">Start</button>
+        <p class="info-msg" [ngClass]="{'game-over': gameOver, 'fade-out': fadeout && !gameOver}">{{ infoMessage }}</p>
+        <button class="quit-btn" *ngIf="!gameOver && hasStarted" (click)="time=0">Quit</button>
+        <p *ngIf="gameOver" class="score">Score: {{ score }}</p>
+        <button *ngIf="gameOver" class="start" (click)="start()">Restart</button>
+    </div>
+    <button class="add-time" [ngStyle]="buttonPosition" *ngIf="!gameOver && hasStarted" (click)="addTime()">
+        Add Time
+    </button>
+</div>

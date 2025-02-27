@@ -1,65 +1,97 @@
-body {
-    background-color: rgb(47, 154, 226);
-}
-
-.container {
+.game-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: white;
     border-radius: 5px;
-    height: 130px;
     width: 35%;
     padding: 10px 20px;
     margin: auto;
-    margin-top: 200px;
-    overflow: hidden;
+    margin-top: 190px;
 }
 
-.container * {
+.game-info * {
     margin: 5px;
 }
 
-#timer {
+.game-control {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 5em;
+    width: 100%;
+}
+
+h2 {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.timer {
     font-size: 35px;
     font-family: "Roboto Mono", monospace;
 }
 
-#start {
+.start {
+    flex: 0.75;
     border-radius: 5px;
     background-color: rgb(123, 220, 227);
     color: black;
     cursor: pointer;
     font-size: 20px;
     width: 70%;
-    ;
 
     &:hover {
         background-color: rgb(152, 231, 237);
     }
 }
 
-#addTime {
+.add-time {
     border-radius: 5px;
     background-color: rgb(123, 220, 227);
     color: black;
     cursor: pointer;
     font-size: 20px;
+    margin: 0;
     width: 100px;
-    ;
+    z-index: 1;
+
     position: absolute;
-    display: none;
 
     &:hover {
         background-color: rgb(152, 231, 237);
     }
 }
 
-#info {
+.quit-btn {
+    border-radius: 5px;
+    background-color: rgb(238, 80, 80);
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    width: 80px;
+
+    &:hover {
+        background-color: rgb(255, 43, 43);
+    }
+}
+
+.info-msg {
+    height: 20px;
     position: relative;
     color: #4CAF50;
     font-size: large;
-    font-weight: bold;
-    opacity: 1;
-    transition: opacity 2s ease-out;
+    font-weight: 500;
+}
+
+.game-over {
+    color: red;
+}
+
+.score {
+    font-family: 'Lucida Console', 'Courier New', monospace;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.75s ease-in-out;
 }
