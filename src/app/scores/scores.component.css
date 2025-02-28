@@ -1,0 +1,38 @@
+.container {
+    padding: 2em 0;
+}
+
+.user-info {
+    background-color: white;
+    border-radius: 15px;
+    margin: 0 10em 2em;
+    padding: 10px;
+    box-shadow: 0 2px 20px 4px rgba(0, 0, 0, 0.26);
+}
+
+.user-high-score {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    text-align: center;
+}
+
+.score-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.score-item {
+    justify-items: center;
+    text-align: center;
+    width: 120px;
+}
+
+.high-scores {
+    padding: 8px;
+    margin: 0 10em;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 20px 4px rgba(0, 0, 0, 0.26);
+}

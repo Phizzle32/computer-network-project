@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-game',
@@ -16,6 +17,8 @@ export class GameComponent {
   infoMessage: string = '';
   gameOver: boolean = false;
   hasStarted: boolean = false;
+
+  constructor(private userService: UserService) {}
 
   fadeout = false;
   buttonPosition = {};
@@ -36,6 +39,7 @@ export class GameComponent {
       clearInterval(this.extraTimeInterval);
       this.gameOver = true;
       this.infoMessage = 'Game over';
+      this.userService.addGame(this.score);
     } else {
       this.time--;
     }
@@ -50,8 +54,8 @@ export class GameComponent {
   }
 
   moveButtonRandomly() {
-    const randomX = Math.max(Math.floor(Math.random() * window.innerWidth - 100), 0);
-    const randomY = Math.max(Math.floor(Math.random() * window.innerHeight - 30), 64);
+    const randomX = Math.max(Math.floor(Math.random() * window.innerWidth - 105), 0);
+    const randomY = Math.max(Math.floor(Math.random() * window.innerHeight - 32), 64);
     this.buttonPosition = { left: `${randomX}px`, top: `${randomY}px` }
   }
 

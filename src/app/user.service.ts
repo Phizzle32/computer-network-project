@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Auth, AuthError, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { collection, doc, Firestore, getDoc, getDocs, limit, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
 
 export interface User {
   name: string;
-  high_score: number; 
+  high_score: number;
   total_score: number;
   times_played: number;
 }
@@ -21,24 +21,23 @@ export class UserService {
 
   async getCurrentUser(): Promise<User | null> {
     const user = this.auth.currentUser;
-    if (user === null) {
+    if (!user) {
       return null;
     }
 
     const userDoc = await getDoc(doc(this.firestore, 'User', user.uid));
-
     if (userDoc.exists()) {
       return userDoc.data() as User;
-    } else {
-      const newUser: User = {
-        name: user.displayName || 'Anonymous',
-        high_score: 0,
-        total_score: 0,
-        times_played: 0,
-      };
-      await setDoc(doc(this.firestore, 'User', user.uid), newUser);
-      return newUser;
     }
+
+    const newUser: User = {
+      name: user.displayName || 'Anonymous',
+      high_score: 0,
+      total_score: 0,
+      times_played: 0,
+    };
+    await setDoc(doc(this.firestore, 'User', user.uid), newUser);
+    return newUser;
   }
 
   registerUser(email: string, password: string, name: string): Promise<{ success: boolean; error: string | null }> {
@@ -96,5 +95,47 @@ export class UserService {
         }
         return { success: false, error: errorMessage };
       });
+  }
+
+  async getHighScores(n: number): Promise<User[]> {
+    try {
+      const highScoresQuery = query(collection(this.firestore, 'User'), orderBy('high_score', 'desc'), limit(n));
+      const querySnapshot = await getDocs(highScoresQuery);
+
+      const highScores: User[] = [];
+      querySnapshot.forEach((doc) => {
+        highScores.push(doc.data() as User);
+      });
+
+      return highScores;
+    } catch (error) {
+      console.error("Something went wrong while fetching high scores:", error);
+      return [];
+    }
+  }
+
+  async addGame(score: number) {
+    const user = await this.getCurrentUser();
+
+    if (!user) {
+      return;
+    }
+
+    const userId = this.auth.currentUser?.uid;
+    if (!userId) {
+      throw new Error("User ID is undefined");
+    }
+
+    try {
+      const userRef = doc(this.firestore, 'User', userId);
+      await updateDoc(userRef, {
+        total_score: user.total_score + score,
+        high_score: Math.max(user.high_score, score),
+        times_played: user.times_played + 1,
+      });
+    } catch (error) {
+      console.error("Error updating user info:", error);
+      throw error;
+    }
   }
 }

@@ -1,0 +1,47 @@
+<div class="container">
+    <div *ngIf="user" class="user-info">
+        <div class="user-high-score">
+            <h2>{{ user.name }}</h2>
+            <div class="score-item">
+                <h2>High Score</h2>
+                <p>{{ user.high_score }}</p>
+            </div>
+        </div>
+        <div class="score-info">
+            <div class="score-item">
+                <h3>Average Score</h3>
+                <p>{{ user.times_played > 0 ? (user.total_score / user.times_played) : 0 }}</p>
+            </div>
+            <div class="score-item">
+                <h3>Total Score</h3>
+                <p>{{ user.total_score }}</p>
+            </div>
+            <div class="score-item">
+                <h3>Number of Games</h3>
+                <p>{{ user.times_played }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="high-scores">
+        <h2>High Scores</h2>
+        <table mat-table [dataSource]="highScores">
+            <ng-container matColumnDef="rank">
+                <th mat-header-cell *matHeaderCellDef>Rank</th>
+                <td mat-cell *matCellDef="let user">{{ highScores.indexOf(user) + 1 }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="score">
+                <th mat-header-cell *matHeaderCellDef>Score</th>
+                <td mat-cell *matCellDef="let user">{{ user.high_score }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['rank', 'score', 'name']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['rank', 'score', 'name'];"></tr>
+        </table>
+    </div>
+</div>
